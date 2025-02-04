@@ -22,9 +22,9 @@ namespace ECS.System
         {
             
             //Handle car spawn on startup
-            foreach ((RefRW<EntityPrefab> entityPrefab, RefRO<LocalTransform> spawnerTransform,
-                      RefRO<ColourComponent> spawnerColour) in
-                     SystemAPI.Query<RefRW<EntityPrefab>, RefRO<LocalTransform>, RefRO<ColourComponent>>().WithAll<SpawnerMarker, ShouldSpawnOnceMarker>())
+            foreach ((var entityPrefab, var spawnerTransform, var spawnerColour) in
+                     SystemAPI.Query<RefRW<EntityPrefab>, RefRO<LocalTransform>, RefRO<ColourComponent>>()
+                              .WithAll<SpawnerMarker, ShouldSpawnOnceMarker>())
             {
                 CreateAndUpdateEntity(ref state, entityPrefab, spawnerTransform, spawnerColour);
             }
