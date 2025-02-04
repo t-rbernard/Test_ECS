@@ -8,7 +8,7 @@ namespace ECS.Components
 
     }
 
-    class ShouldBeRandomizedTagAuthoringBaker : Baker<ShouldRandomizeColourOnceMarkerAuthoring>
+    class ShouldRandomizeColourOnceMarkerAuthoringBaker : Baker<ShouldRandomizeColourOnceMarkerAuthoring>
     {
         public override void Bake(ShouldRandomizeColourOnceMarkerAuthoring authoring)
         {
@@ -17,6 +17,9 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * Simple marker used to randomize colour once then be disabled
+     */
     public struct ShouldRandomizeColourOnceMarker : IComponentData, IEnableableComponent
     {
     

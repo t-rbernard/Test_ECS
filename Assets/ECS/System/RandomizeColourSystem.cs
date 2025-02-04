@@ -22,8 +22,7 @@ namespace ECS.System
                      //WithAny here to eventually have other colour randomization markers (randomize every X frames or smth)
                      SystemAPI.Query<RefRW<ColourComponent>, RefRW<URPMaterialPropertyBaseColor>>().WithAny<ShouldRandomizeColourOnceMarker>())
             {
-                colourComponent.ValueRW.colour = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);;
-                materialPropertyBaseColor.ValueRW.Value = new float4(colourComponent.ValueRO.colour.r, colourComponent.ValueRO.colour.g, colourComponent.ValueRO.colour.b, colourComponent.ValueRO.colour.a);
+                colourComponent.ValueRW.colour = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             }
             
             //Disable the "randomize once" marker to avoid randomizing if not necessary
@@ -32,6 +31,7 @@ namespace ECS.System
             state.EntityManager.SetComponentEnabled<ShouldRandomizeColourOnceMarker>(entityQuery, false);
             queryBuilder.Dispose();
             entityQuery.Dispose();
+            // TODO : check optimization of instantiating Builder and Query here. Builder is a ref so it seems fine ?
         }
     }
 }
