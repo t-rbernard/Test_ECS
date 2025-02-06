@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7778159367419842304}
   - component: {fileID: 4787082209531569896}
   - component: {fileID: 8519555052382669862}
+  - component: {fileID: -7007038046174687670}
+  - component: {fileID: -6773263332148267380}
   m_Layer: 0
   m_Name: CarEntityPrefab
   m_TagString: Untagged
@@ -119,3 +121,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colour: {r: 1, g: 1, b: 1, a: 0}
+--- !u!114 &-7007038046174687670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738684923420818222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3efaff7813218544a1bd83e6655a5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 20
+--- !u!114 &-6773263332148267380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738684923420818222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293896dbde7ccfe4d857927a4b498365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 0}
