@@ -21,6 +21,9 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * Component containing an Entity prefab to be used as reference by Systems (namely the Spawner System)
+     */
     public struct EntityPrefab : IComponentData
     {
         public Entity prefab;

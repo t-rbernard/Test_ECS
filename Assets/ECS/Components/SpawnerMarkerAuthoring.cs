@@ -17,6 +17,9 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * Simple marker differentiating spawners from other entities with common components
+     */
     struct SpawnerMarker : IComponentData
     {
 
