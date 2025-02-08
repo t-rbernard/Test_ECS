@@ -15,7 +15,7 @@ namespace ECS.Components
         {
             public override void Bake(EntityPrefabAuthoring authoring)
             {
-                Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+                Entity entity = GetEntity(TransformUsageFlags.None);
                 AddComponent(entity, new EntityPrefab { prefab = GetEntity(authoring.prefab, TransformUsageFlags.Dynamic) });
             }
         }

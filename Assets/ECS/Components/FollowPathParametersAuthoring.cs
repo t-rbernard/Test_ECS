@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace ECS.Components
         /**
          * Produces a float3 from the movement speed allowing only x,z movement
          */
-        public float3 GetFloat3MoveSpeed()
+        [Pure] public float3 GetFloat3MoveSpeed()
         {
             return new float3(moveSpeed, 0, moveSpeed);
         }
