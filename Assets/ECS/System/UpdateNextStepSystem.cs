@@ -5,6 +5,8 @@ using Unity.Transforms;
 
 namespace ECS.System
 {
+    //Wait until we've checked for disabled goal components that would have a valid goal
+    [UpdateAfter(typeof(EnableCurrentGoalIfNeeded))]
     public partial struct UpdateNextStepSystem : ISystem
     {
         [BurstCompile]
@@ -18,15 +20,15 @@ namespace ECS.System
         {
             //TODO : try and find a better way to access the buffer than use entity access ?
             var bufferLookup = SystemAPI.GetBufferLookup<Float2WaypointsBufferData>();
-            foreach ((var transform, var currentStep, var currentGoal, var entity) 
-            in SystemAPI.Query<RefRO<LocalTransform>, RefRW<CurrentPathStep>, RefRW<CurrentMovementGoalComponent>>().WithEntityAccess())
+            foreach ((var spawnerEntity, var transform, var currentStep, var currentGoal) 
+            in SystemAPI.Query<RefRO<SpawnerReference>, RefRO<LocalTransform>, RefRW<CurrentPathStep>, RefRW<CurrentMovementGoalComponent>>())
             {
-                var goalPositionBuffer = bufferLookup[entity];
+                var goalPositionBuffer = bufferLookup[spawnerEntity.ValueRO.Spawner];
                 //If we have valid buffer data
                 if (goalPositionBuffer is { IsCreated: true, IsEmpty: false })
                 {
                     //If goal has been attained
-                    if (transform.ValueRO.Position.Equals(currentGoal.ValueRO.getAsFloat3()))
+                    if (transform.ValueRO.Position.Equals(currentGoal.ValueRO.getAsFloat3(transform.ValueRO.Position.y)))
                     {
                         //Increment current step to either set a new goal
                         currentStep.ValueRW.CurrentStepIndex = currentStep.ValueRO.CurrentStepIndex + 1;   

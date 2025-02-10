@@ -1,19 +1,21 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ECS.Components
 {
     public class SpawnRateAuthoring : MonoBehaviour
     {
-		public float spawnRatePerSecond = 1f;
+		[Tooltip("Seconds before a new entity spawns")] 
+		public float SpawnTimeoutInSeconds = 1f;
         private class SpawnRateAuthoringBaker : Baker<SpawnRateAuthoring>
         {
             public override void Bake(SpawnRateAuthoring authoring)
             {
 	            Entity entity = GetEntity(TransformUsageFlags.None);
 	            AddComponent(entity, new SpawnRateComponent { 
-		            spawnRatePerSecond = authoring.spawnRatePerSecond, 
-		            timeToNextSpawn = authoring.spawnRatePerSecond
+		            spawnRatePerSecond = authoring.SpawnTimeoutInSeconds, 
+		            timeToNextSpawn = authoring.SpawnTimeoutInSeconds
 	            });
             }
         }

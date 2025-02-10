@@ -14,15 +14,17 @@ namespace ECS.Components
             {
                 Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
                 AddComponent(entity, new CurrentMovementGoalComponent(authoring.position));
+                SetComponentEnabled<CurrentMovementGoalComponent>(entity, false);
             }
         }
     }
 
-    public struct CurrentMovementGoalComponent : IComponentData
+    public struct CurrentMovementGoalComponent : IComponentData, IEnableableComponent
     {
         public float2 position;
 
         public CurrentMovementGoalComponent(float2 position) { this.position = position; }
         [Pure] public float3 getAsFloat3() => new (position.x, 0, position.y);
+        [Pure] public float3 getAsFloat3(float yValue) => new (position.x, yValue, position.y);
     }
 }

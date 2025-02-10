@@ -21,13 +21,12 @@ namespace ECS.System
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var waypointsBufferLookup = SystemAPI.GetBufferLookup<Float2WaypointsBufferData>();
             foreach ((var spawnRate, var prefab, var transform, var entity) 
                      in SystemAPI.Query<RefRO<SpawnRateComponent>, RefRO<EntityPrefab>, RefRO<LocalTransform>>().WithEntityAccess())
             {
                 if(spawnRate.ValueRO.timeToNextSpawn == 0)
                 {
-                    CreateAndUpdateEntity(ref state, waypointsBufferLookup[entity], prefab, transform);
+                    CreateAndUpdateEntity(ref state, entity, prefab, transform);
                 }
             }
         }
@@ -37,7 +36,7 @@ namespace ECS.System
          */
         [BurstCompile]
         public void CreateAndUpdateEntity(ref SystemState state,
-                                          DynamicBuffer<Float2WaypointsBufferData> spawnerBuffer,
+                                          Entity spawnerEntity,
                                           RefRO<EntityPrefab> entityPrefab, 
                                           RefRO<LocalTransform> spawnerTransform)
         {
@@ -51,16 +50,7 @@ namespace ECS.System
             Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             //TODO : Use spawner's random colour set
             state.EntityManager.SetComponentData(spawnedEntity, new URPMaterialPropertyBaseColor { Value = new float4(randomColor.r, randomColor.g, randomColor.b, randomColor.a) });
-            if(spawnerBuffer.IsCreated && !spawnerBuffer.IsEmpty)
-            {
-                var buffer = state.EntityManager.AddBuffer<Float2WaypointsBufferData>(spawnedEntity);
-                foreach (var bufferData in spawnerBuffer)
-                {
-                    buffer.Add(new Float2WaypointsBufferData(bufferData.Value)); 
-                    //TODO: Maybe do that via a Baker ? cf PathGameObjectAuthoring
-                }
-            }
-            //TODO: Try to just reference the spawner and access its components ?
+            state.EntityManager.SetComponentData(spawnedEntity, new SpawnerReference { Spawner = spawnerEntity });
         }
     }
 }

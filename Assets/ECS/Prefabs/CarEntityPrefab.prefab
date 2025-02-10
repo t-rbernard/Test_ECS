@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -3601179283562571079}
   - component: {fileID: -3430051769136758089}
   - component: {fileID: -3824784249450086282}
+  - component: {fileID: 4963390355398729296}
   m_Layer: 6
   m_Name: CarEntityPrefab
   m_TagString: Untagged
@@ -174,5 +175,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 651486533c624936bf36a1ffb83b10c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4963390355398729296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738684923420818222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5c8c05ed084a08bac0de6d31f8d9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

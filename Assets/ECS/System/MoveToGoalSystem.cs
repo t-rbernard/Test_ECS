@@ -22,7 +22,7 @@ namespace ECS.System
                      in SystemAPI.Query<RefRO<FollowPathParameters>, RefRO<CurrentMovementGoalComponent>, RefRW<LocalTransform>>())
             {
                 //Do the thing
-                float3 currentGoalPosition = currentGoal.ValueRO.getAsFloat3();
+                float3 currentGoalPosition = currentGoal.ValueRO.getAsFloat3(transform.ValueRO.Position.y);
                 float3 distanceToGoal = currentGoalPosition - transform.ValueRO.Position;
                 
                 //If total distance to goal < movement speed normalized by delta, we'd go over our goal step in this update
