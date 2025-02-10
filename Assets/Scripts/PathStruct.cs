@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 /**
@@ -8,7 +7,18 @@ using UnityEngine;
  */
 public class PathStruct : MonoBehaviour
 {
-    public float2[] path = { };
+    public GameObject[] path = Array.Empty<GameObject>();
+
+    private void OnDrawGizmos()
+    {
+        if(path != null)
+        {
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                Gizmos.DrawLine(path[i].transform.position, path[i + 1].transform.position);
+            }
+        }
+    }
 }
 // Maybe possible to replace this struct with something easier to manage from the scene,
 // like a list of empty game objects where we use their transform as way points (easier to manipulate
