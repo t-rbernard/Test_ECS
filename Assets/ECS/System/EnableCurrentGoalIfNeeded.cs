@@ -11,8 +11,8 @@ namespace ECS.System
         public void OnUpdate(ref SystemState state)
         {
             var bufferLookup = SystemAPI.GetBufferLookup<Float2WaypointsBufferData>();
-            foreach ((var currentStep, var spawnerRef, var entity) 
-                     in SystemAPI.Query<RefRW<CurrentPathStep>, RefRO<SpawnerReference>>()
+            foreach ((var currentStep, var spawnerRef, var currentGoal, var entity) 
+                     in SystemAPI.Query<RefRW<CurrentPathStep>, RefRO<SpawnerReference>, RefRW<CurrentMovementGoalComponent>>()
                                  .WithDisabled<CurrentMovementGoalComponent>().WithEntityAccess())
             {
                 Debug.LogWarning("Try access goal buffer");
@@ -23,6 +23,7 @@ namespace ECS.System
                 {
                     Debug.LogWarning("Try enable movement goal");
                     state.EntityManager.SetComponentEnabled<CurrentMovementGoalComponent>(entity, true);
+                    currentGoal.ValueRW.position = goalPositionBuffer[currentStep.ValueRO.CurrentStepIndex].Value;
                 }
             }
         }
