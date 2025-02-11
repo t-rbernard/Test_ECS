@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace ECS.System
 {
-    [UpdateBefore(typeof(UpdateNextStepSystem))]
     public partial struct EnableCurrentGoalIfNeeded : ISystem
     {
         

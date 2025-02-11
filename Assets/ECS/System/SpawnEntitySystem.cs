@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 namespace ECS.System
 {
     [BurstCompile]
-    [UpdateAfter(typeof(UpdateTimers))]
     partial struct SpawnEntitySystem : ISystem
     {
         public void OnCreate(ref SystemState state)

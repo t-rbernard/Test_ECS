@@ -5,14 +5,12 @@ using Unity.Transforms;
 
 namespace ECS.System
 {
-    //Wait until we've checked for disabled goal components that would have a valid goal
-    [UpdateAfter(typeof(EnableCurrentGoalIfNeeded))]
     public partial struct UpdateNextStepSystem : ISystem
     {
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            
+            state.RequireForUpdate<CurrentMovementGoalComponent>();
         }
 
         [BurstCompile]
@@ -40,12 +38,6 @@ namespace ECS.System
                     }
                 }
             }
-        }
-
-        [BurstCompile]
-        public void OnDestroy(ref SystemState state)
-        {
-
         }
     }
 }

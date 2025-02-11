@@ -10,12 +10,6 @@ namespace ECS.System
     public partial struct UpdateTimers : ISystem
     {
         [BurstCompile]
-        public void OnCreate(ref SystemState state)
-        {
-            
-        }
-
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             foreach (var timer in SystemAPI.Query<RefRW<SpawnRateComponent>>())
@@ -27,12 +21,6 @@ namespace ECS.System
                 if (timer.ValueRO.timeToNextSpawn < 0f)
                     timer.ValueRW.timeToNextSpawn = 0f;
             }
-        }
-
-        [BurstCompile]
-        public void OnDestroy(ref SystemState state)
-        {
-
         }
     }
 }

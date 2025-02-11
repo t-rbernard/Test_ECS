@@ -5,10 +5,6 @@ namespace ECS.Components
 {
     class EntityPrefabAuthoring : MonoBehaviour
     {
-        // Feels slightly wrong to have GameObject here and not Entity
-        // But Entity isn't serializable and it's what I found here :
-        // https://dev.to/rk042/a-comprehensive-guide-to-generating-entity-prefabs-at-runtime-in-unity-ecs-16o4
-        // Some tutorials I found did use Entity, but were much older and didn't work due to being out of date
         public GameObject prefab;
         
         private class EntityPrefabAuthoringBaker : Baker<EntityPrefabAuthoring>
