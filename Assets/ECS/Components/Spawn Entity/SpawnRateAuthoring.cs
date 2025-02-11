@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ECS.Components
 {
@@ -14,8 +14,8 @@ namespace ECS.Components
             {
 	            Entity entity = GetEntity(TransformUsageFlags.None);
 	            AddComponent(entity, new SpawnRateComponent { 
-		            spawnRatePerSecond = authoring.SpawnTimeoutInSeconds, 
-		            timeToNextSpawn = authoring.SpawnTimeoutInSeconds
+		            spawnRatePerSecond = math.abs(authoring.SpawnTimeoutInSeconds), 
+		            timeToNextSpawn = math.abs(authoring.SpawnTimeoutInSeconds)
 	            });
             }
         }
