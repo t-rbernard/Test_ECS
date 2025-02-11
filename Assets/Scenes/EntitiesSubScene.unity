@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: spawnRatePerSecond
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8207770989831291177, guid: d297c588395ef2242bb86d7d011719c3, type: 3}
+      propertyPath: SpawnTimeoutInSeconds
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 2074533471629894889, guid: d297c588395ef2242bb86d7d011719c3, type: 3}
       propertyPath: path.Array.size
       value: 0

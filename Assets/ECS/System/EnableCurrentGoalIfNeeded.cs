@@ -20,7 +20,7 @@ namespace ECS.System
                 var goalPositionBuffer = bufferLookup[spawnerRef.ValueRO.Spawner];
                 //If we have valid buffer data
                 if (goalPositionBuffer is { IsCreated: true, IsEmpty: false }
-                    && currentStep.ValueRO.CurrentStepIndex < goalPositionBuffer.Length - 1)
+                    && currentStep.ValueRO.CurrentStepIndex < goalPositionBuffer.Length)
                 {
                     Debug.LogWarning("Try enable movement goal");
                     state.EntityManager.SetComponentEnabled<CurrentMovementGoalComponent>(entity, true);

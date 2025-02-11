@@ -33,7 +33,7 @@ namespace ECS.System
                         //Increment current step to either set a new goal
                         currentStep.ValueRW.CurrentStepIndex = currentStep.ValueRO.CurrentStepIndex + 1;   
                         //If we're not at the ultimate step yet, set next goal
-                        if(currentStep.ValueRO.CurrentStepIndex < goalPositionBuffer.Length - 1)
+                        if(currentStep.ValueRO.CurrentStepIndex < goalPositionBuffer.Length)
                         {
                             currentGoal.ValueRW.position = goalPositionBuffer[currentStep.ValueRO.CurrentStepIndex].Value;
                         }

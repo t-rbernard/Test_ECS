@@ -19,8 +19,8 @@ namespace ECS.System
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
             var bufferLookup = SystemAPI.GetBufferLookup<Float2WaypointsBufferData>();
-            foreach ((var spawnerEntity, var transform, var currentStep, var entity)
-                     in SystemAPI.Query<RefRO<SpawnerReference>, RefRO<LocalTransform>, RefRW<CurrentPathStep>>()
+            foreach ((var spawnerEntity, var currentStep, var entity)
+                     in SystemAPI.Query<RefRO<SpawnerReference>, RefRW<CurrentPathStep>>()
                                  .WithAll<DestroyOnPathDoneMarker>().WithEntityAccess())
             {
                 var goalPositionBuffer = bufferLookup[spawnerEntity.ValueRO.Spawner];
