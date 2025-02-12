@@ -46,8 +46,18 @@ namespace ECS.System
                 Rotation = spawnerTransform.ValueRO.Rotation,
                 Scale = 1
             });
-            Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            //TODO : Use spawner's random colour set
+
+            Color randomColor;
+            var colourChoicesBuffer = state.EntityManager.GetBuffer<ColourBufferData>(spawnerEntity);
+            if (colourChoicesBuffer is { IsCreated: true, Length: > 0 })
+            {
+                randomColor = colourChoicesBuffer[Random.Range(0, colourChoicesBuffer.Length)].colour;
+            }
+            else
+            {
+                randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            }
+
             state.EntityManager.SetComponentData(spawnedEntity, new URPMaterialPropertyBaseColor { Value = new float4(randomColor.r, randomColor.g, randomColor.b, randomColor.a) });
             state.EntityManager.SetComponentData(spawnedEntity, new SpawnerReference { Spawner = spawnerEntity });
         }
