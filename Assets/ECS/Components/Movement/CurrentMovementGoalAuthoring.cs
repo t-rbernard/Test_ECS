@@ -20,7 +20,8 @@ namespace ECS.Components
     }
 
     /**
-     * Current float2 goal for this entity 
+     * Current float2 (x,z) goal for this entity.
+     * Following this kind of goal will go along the current entity's height 
      */
     public struct CurrentMovementGoalComponent : IComponentData, IEnableableComponent
     {
