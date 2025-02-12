@@ -12,14 +12,20 @@ This project is a test to see if I can adapt and learn Unity's ECS framework by 
 
 # How it works
 ## Components
-- **ColourComponent** : simply contains a Color type attribute to be used to colour the material appropriately
-- **EntityPrefab** : Container for an Entity Prefab that can be used as a model or to get data from (used by spawners currently)
-- **FollowPathParameters** : Currently only contains the speed of the entity while following a path. Currently it's attached directly to the prefab entity that will spawn, but the spawner could instantiate this component if we want different movement speeds for a same prefab
-- **PathGameObject** : Container game object, consisting of a list of float2 (x,z) checkpoints for the entity to check. This component is serializable and allows to add (x,z) checkpoints from the scene as required (TODO: update for an easier to edit representation)
+- **ColourSet** : authoring component to add a buffer of available colours to an entity
 - **Markers** :
   - _SpawnerMarker_ : Distinguishes spawner from entities with common components (namely, the entity they spawn)
-  - _ShouldSpawnOnceMarker_ : Marks an entity as having to spawn only one entity (either itself, or an entity prefab). It is then disabled
-  - _ShouldRandomizeColourOnceMarker_ :  Marks an entity as having its colour randomized once, then disable this marker
+  - _DestroyOnPathDone_ : Once it arrives at the end of its current path, the marked entity will be destroyed by a cleanup system
+### Movement
+- **CurrentMovementGoal** : Gives the entity float2 goal coordinates (x,z) to go towards. Starts disabled and has to be enabled by the system initiating the entity's first goal
+- **CurrentPathStep** : If an entity goes along a segmented path, this component saves at what step of the path we are to allow finding the next goal
+- **FollowPathParameters** : Currently only sets the entity movement speed, but can be extended to max turn angle, acceleration etc
+- **PathGameObject** : Uses a game object array to bake a dynamic array of path steps into a dynamic buffer. We can use any game object, even empty as path step. It"s just easier to place around from the scene than bare coordinates
+### Spawn Entity
+- **EntityPrefab** : Container for an Entity Prefab that can be used as a model or to get data from (used by spawners currently)
+- **SpawnerReference** : Reference to the entity that spawned the EntityPrefab. Currently used as a colour set source and a path source as we wish to inherit both from the spawner, but if need be could be split with a PathReference and ColourReference (that could even be the Entity itself if it's its own source)
+- **SpawnRate** : Gives an editable spawn rate and holds the current updated timeout value to be updated by timer related systems
+
 
 ## Entities/Prefabs
 Two prefab entities are given in this test project : 
@@ -27,7 +33,9 @@ Two prefab entities are given in this test project :
 - **CarEntityPrefab** : A coloured car with pathing parameters, allowing it to parametrically follow its given path
 
 ## Systems
-- **RandomizeColourSystem** : If necessary, randomizes an entity's ColourComponent with a pseudorandom colour
-- **UpdateColourSystem** : iterates over components with a MaterialBaseColor and a ColourComponent, updating the material colour in accordance with the colour component if necessary
-- **SpawnEntitySystem** : Spawns a given EntityPrefab on all spawners with the appropriate components, having the entity inherit the spawner's route and colour. Currently only spawns one car each, but could be expanded to spawn on key press or at intervals for example.
-- **FollowPathAndDestroySystem** : Moves a given entity according to its given path and path parameters components, cleaning/destroying the entity once it gets to its last checkpoint in the route.
+- **DestroyPathCompleteEntities** : If an entity has a DestroyOnPathDoneMarker and has achieved the last goal in its current path, this system will destroy it
+- **EnableCurrentGoalIfNeeded** : If an entity has its current goal component disabled (no current goal) and has a new step available in its current path (added a new step or a whole new path) then enable its goal component and give it a new step
+- **MoveToGoalSystem** : Moves the entity towards its current goal and snaps it to goal if it's close enough
+- **SpawnEntitySystem** : Spawns entities from the _EntityPrefabComponent_ for each _SpawnerMarker_ entities if the spawner's spawn timeout is at 0
+- **UpdateNextStepSystem** : If an entity is at its current goal, set its current step and next goal according to its path
+- **UpdateTimers** : Updates entities' timeout components by decrementing their timeout values according to delta time (snaps to 0 if needed)
