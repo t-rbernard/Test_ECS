@@ -6,6 +6,9 @@ using Unity.Transforms;
 
 namespace ECS.System
 {
+    /**
+     * Destroys entity with a DestroyOnPathDoneMarker if their path is done
+     */
     public partial struct DestroyPathCompleteEntities : ISystem
     {
         [BurstCompile]

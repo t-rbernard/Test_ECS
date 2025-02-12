@@ -24,18 +24,20 @@ namespace ECS.System
                 //Do the thing
                 float3 currentGoalPosition = currentGoal.ValueRO.getAsFloat3(transform.ValueRO.Position.y);
                 float3 distanceToGoal = currentGoalPosition - transform.ValueRO.Position;
-                
+                float yAngle = math.atan(distanceToGoal.z/distanceToGoal.x);
+                // Quaternion.FromToRotation(transform.ValueRO)
+
                 //If total distance to goal < movement speed normalized by delta, we'd go over our goal step in this update
                 float absoluteDistance = math.csum(math.abs(distanceToGoal));
                 if (absoluteDistance < parameters.ValueRO.moveSpeed * Time.deltaTime)
                 {
                     Debug.Log("Closer to goal than expected movement, snap to goal");
-                    transform.ValueRW = transform.ValueRO.WithPosition(currentGoalPosition);
+                    transform.ValueRW = transform.ValueRO.WithPosition(currentGoalPosition).WithRotation(Quaternion.Euler(0, yAngle, 0));
                 }
                 else //Normal movement
                 {
                     float3 normalizedMovementVector = math.normalize(distanceToGoal) * parameters.ValueRO.GetFloat3MoveSpeed() * SystemAPI.Time.DeltaTime;
-                    transform.ValueRW = transform.ValueRO.Translate(normalizedMovementVector);
+                    transform.ValueRW = transform.ValueRO.Translate(normalizedMovementVector)/*.WithRotation(angle)*/;
                 }
             }
         }

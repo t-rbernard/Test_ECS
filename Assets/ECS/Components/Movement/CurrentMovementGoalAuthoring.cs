@@ -19,6 +19,9 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * Current float2 goal for this entity 
+     */
     public struct CurrentMovementGoalComponent : IComponentData, IEnableableComponent
     {
         public float2 position;

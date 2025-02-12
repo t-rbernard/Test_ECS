@@ -15,6 +15,9 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * A simple marker used to signal the destruction system this entity should get destroyed after its path is done
+     */
     public struct DestroyOnPathDoneMarker : IComponentData
     {
     }

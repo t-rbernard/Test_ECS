@@ -6,7 +6,6 @@ namespace ECS.Components
 {
     public class PathGameObjectAuthoring : MonoBehaviour
     {
-        //Don't add goal step to authoring as it's always init to 0
         public GameObject[] waypoints;
         private class PathGameObjectAuthoringBaker : Baker<PathGameObjectAuthoring>
         {
@@ -22,7 +21,6 @@ namespace ECS.Components
                             buffer.Add(new Float2WaypointsBufferData(obj.transform));
                     }
                 }
-                // AddComponentObject(entity, new PathingComponent { currentGoalStep = 0, pathStruct = authoring.path });
             }
         }
         

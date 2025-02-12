@@ -49,11 +49,11 @@ namespace ECS.System
 
             Color randomColor;
             var colourChoicesBuffer = state.EntityManager.GetBuffer<ColourBufferData>(spawnerEntity);
-            if (colourChoicesBuffer is { IsCreated: true, Length: > 0 })
+            if (colourChoicesBuffer is { IsCreated: true, Length: > 0 }) // Get random colour from buffer if possible
             {
                 randomColor = colourChoicesBuffer[Random.Range(0, colourChoicesBuffer.Length)].colour;
             }
-            else
+            else // Otherwise get a random visible colour
             {
                 randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             }

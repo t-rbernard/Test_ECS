@@ -5,7 +5,7 @@ using Unity.Entities;
 namespace ECS.System
 {
     /**
-     * Currently only lowers spawner timers, but with a bit of  
+     * Currently only lowers spawner timers, but with a bit of component refactors can be a generic timer update
      */
     public partial struct UpdateTimers : ISystem
     {

@@ -16,6 +16,10 @@ namespace ECS.Components
         }
     }
 
+    /**
+     * A reference to a Spawner entity, used to refer to the spawner's path and colour
+     * (could be split to make these systems more generic if needed)
+     */
     public struct SpawnerReference : IComponentData
     {
         public Entity Spawner;

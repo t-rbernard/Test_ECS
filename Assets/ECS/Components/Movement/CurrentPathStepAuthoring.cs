@@ -13,9 +13,11 @@ namespace ECS.Components
                 AddComponent(entity, new CurrentPathStep { CurrentStepIndex = 0 });
             }
         }
-
-        
     }
+    
+    /**
+     * Current step in the path the entity is following, from 0 to Path.Length - 1
+     */
     public struct CurrentPathStep : IComponentData
     {
         public int CurrentStepIndex;
